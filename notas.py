@@ -36,6 +36,14 @@ def editar_nota(indice, nueva_nota):
     else:
         print("Índice no válido.")
 
+def eliminar_nota(indice):
+    if 0 <= indice < len(notas):
+        notas.pop(indice)
+        guardar_notas()
+        print("Nota eliminada.")
+    else:
+        print("Índice no válido.")
+
 # Cargar notas al iniciar
 cargar_notas()
 
@@ -43,7 +51,8 @@ while True:
     print("\n1. Agregar nota")
     print("2. Ver notas")
     print("3. Editar nota")
-    print("4. Salir")
+    print("4. Eliminar nota")
+    print("5. Salir")
 
     opcion = input("Elige una opción: ")
 
@@ -61,6 +70,13 @@ while True:
         except ValueError:
             print("Entrada no válida.")
     elif opcion == "4":
+        ver_notas()
+        try:
+            numero = int(input("¿Qué número de nota quieres eliminar? ")) - 1
+            eliminar_nota(numero)
+        except ValueError:
+            print("Entrada no válida.")
+    elif opcion == "5":
         break
     else:
         print("Opción no válida.")
