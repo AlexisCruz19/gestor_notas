@@ -1,10 +1,25 @@
 from datetime import datetime
+import os
 
+ARCHIVO = "notas.txt"
 notas = []
+
+def cargar_notas():
+    if os.path.exists(ARCHIVO):
+        with open(ARCHIVO, "r", encoding="utf-8") as f:
+            for linea in f:
+                notas.append(linea.strip())
+
+def guardar_notas():
+    with open(ARCHIVO, "w", encoding="utf-8") as f:
+        for nota in notas:
+            f.write(nota + "\n")
 
 def agregar_nota(nota):
     fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    notas.append(f"[{fecha}] {nota}")
+    nota_formateada = f"[{fecha}] {nota}"
+    notas.append(nota_formateada)
+    guardar_notas()
     print("Nota agregada.")
 
 def ver_notas():
@@ -16,9 +31,13 @@ def editar_nota(indice, nueva_nota):
     if 0 <= indice < len(notas):
         fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         notas[indice] = f"[{fecha}] {nueva_nota}"
+        guardar_notas()
         print("Nota editada.")
     else:
         print("Índice no válido.")
+
+# Cargar notas al iniciar
+cargar_notas()
 
 while True:
     print("\n1. Agregar nota")
