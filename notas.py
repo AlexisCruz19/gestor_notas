@@ -1,9 +1,12 @@
 # notas.py
 
+from datetime import datetime
+
 notas = []
 
 def agregar_nota(nota):
-    notas.append(nota)
+    fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    notas.append(f"[{fecha}] {nota}")
     print("Nota agregada.")
 
 def ver_notas():
